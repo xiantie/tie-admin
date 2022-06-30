@@ -1,5 +1,6 @@
 // 1. 导入所有svg图标
 //2. 完成SvgIcon的全局注册
+// https://webpack.docschina.org/guides/dependency-management/#requirecontext
 
 const svgRequire = require.context('./svg', false, /\.svg$/)
 
