@@ -4,7 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const publicRoutes = [
   {
     path: '/login',
-    Comment: () => import('@/views/login/indexWeb')
+    component: () => import('@/views/login/indexWeb')
   }
 ]
 
