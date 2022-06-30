@@ -61,12 +61,13 @@ $cursor: #fff;
     }
 
     :deep(.el-input) {
-      // display: inline-block;
+      display: inline-block;
       height: 47px;
       width: 85%;
-      // --el-input-bg-color:transparent;
-%;
-;
+
+      input {
+        background: transparent;
+        border: 0px;
         -webkit-appearance: none;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
