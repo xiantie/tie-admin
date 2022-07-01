@@ -8,25 +8,26 @@
     active-text-color="#ffd04b"
   >
     <!-- 子集 menu 菜单 -->
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon>
-          <Location />
-        </el-icon>
-        <span>导航一</span>
-      </template>
-      <el-menu-item index="1-1">选项1</el-menu-item>
-      <el-menu-item index="1-2">选项2</el-menu-item>
-    </el-sub-menu>
-    <!-- 具体菜单项 -->
-    <el-menu-item index="2">
-      <el-icon><Setting /></el-icon>
-      <template #title>导航二</template>
-    </el-menu-item>
+    <side-bar-item
+      v-for="item in routes"
+      :key="item.path"
+      :route="item"
+    ></side-bar-item>
   </el-menu>
 </template>
 <script setup>
-import { Location, Setting } from '@element-plus/icons-vue'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { filterRouters, generateMenus } from '@/utils/route'
+import SideBarItem from './SideBarItem'
 import variables from '@/styles/variables.module.scss'
+
+const router = useRouter()
+const routes = computed(() => {
+  const filterRoutes = filterRouters(router.getRoutes())
+  return generateMenus(filterRoutes)
+})
+console.log(JSON.stringify(routes.value))
 </script>
+
 <style lang="scss" scoped></style>
