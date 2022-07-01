@@ -1,6 +1,7 @@
 <template>
   <div class="navbar">
     <hamburger class="hamburger-container" />
+    <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
@@ -34,6 +35,7 @@
 
 <script setup>
 import Hamburger from '@/components/MyHamburger'
+import Breadcrumb from '@/components/Breadcrumb'
 import {} from 'vue'
 import { useStore } from 'vuex'
 import { Tools } from '@element-plus/icons-vue'
@@ -63,6 +65,9 @@ const logout = () => {
     &:hover {
       background: rgba(0, 0, 0, 0.1);
     }
+  }
+  .breadcrumb-container {
+    float: left;
   }
 
   .right-menu {
