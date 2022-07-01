@@ -35,5 +35,7 @@ module.exports = defineConfig({
       .type('javascript/auto')
       .include.add(/node_modules/)
       .end()
+
+    config.resolve.alias.set('path', require.resolve('path-browserify'))
   }
 })
