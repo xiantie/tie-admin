@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import variables from '@/styles/variables.scss'
+import variables from '@/styles/variables.module.scss'
 import {} from 'vue'
 import Sidebar from '@/layout/components/SideBar'
 import Navbar from '@/layout/components/NavBar'
@@ -26,7 +26,7 @@ import AppMain from '@/layout/components/AppMain'
 
 <style lang="scss" scoped>
 @import '~@/styles/mixin.scss';
-@import '~@/styles/variables.scss';
+@import '~@/styles/variables.module.scss';
 
 .app-wrapper {
   @include clearfix;
