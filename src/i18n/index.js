@@ -1,18 +1,23 @@
+import mZhLocale from './lang/zh'
+import mEnLocale from './lang/en'
+
+import store from '@/store'
 import { createI18n } from 'vue-i18n'
 const messages = {
   en: {
     msg: {
-      test: 'hello world'
+      ...mEnLocale
     }
   },
   zh: {
     msg: {
-      test: '你好世界'
+      ...mZhLocale
     }
   }
 }
 
-const locale = 'zh'
+// console.log(store.getters)
+const locale = store.getters.language
 const i18n = createI18n({
   // 使用 Composition API 模式，则需要将其设置为false
   legacy: false,

@@ -2,6 +2,7 @@ import variables from '@/styles/variables.module.scss'
 const getters = {
   userInfo: (state) => state.user.userInfo,
   cssVar: (state) => variables,
+  language: (state) => state.app.language,
   /**
    * @returns true 表示已存在用户信息
    */
