@@ -59,6 +59,7 @@ import { validatePassword } from './rules'
 import { useStore } from 'vuex'
 import router from '@/router'
 import { useI18n } from 'vue-i18n'
+import LangSelect from '@/components/LangSelect'
 //数据源
 const loginForm = ref({
   username: 'super-admin',
