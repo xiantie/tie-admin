@@ -10,6 +10,7 @@ const getters = {
     return JSON.stringify(state.user.userInfo) !== '{}'
   },
   token: (state) => state.user.token,
-  sidebarOpened: (state) => state.app.sidebarOpened
+  sidebarOpened: (state) => state.app.sidebarOpened,
+  mainColor: (state) => state.theme.mainColor
 }
 export default getters

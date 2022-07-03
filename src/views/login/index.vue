@@ -163,6 +163,11 @@ $cursor: #fff;
       }
     }
   }
+  .tips {
+    font-size: 16px;
+    color: white;
+    line-height: 24px;
+  }
 
   .svg-container {
     padding: 6px 5px 6px 15px;
@@ -190,6 +195,16 @@ $cursor: #fff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .lang-select {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    background-color: #fff;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 }
 </style>

@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <theme-picker class="right-menu-item hover-effect" />
       <lang-select class="right-menu-item hover-effect" />
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
@@ -35,6 +36,7 @@
 </template>
 
 <script setup>
+import ThemePicker from '@/components/ThemeSelect/index'
 import LangSelect from '@/components/LangSelect'
 import Hamburger from '@/components/MyHamburger'
 import Breadcrumb from '@/components/Breadcrumb'
