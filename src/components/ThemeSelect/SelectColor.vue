@@ -32,6 +32,8 @@ const emits = defineEmits(['update:modelValue'])
 
 // 预定义色值
 const predefineColors = [
+  '#304156',
+  '#409eff',
   '#ff4500',
   '#ff8c00',
   '#ffd700',
