@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container" />
     <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
+      <header-search class="right-menu-item hover-effect" />
       <screenfull class="right-menu-item hover-effect" />
       <theme-picker class="right-menu-item hover-effect" />
       <lang-select class="right-menu-item hover-effect" />
@@ -45,6 +46,7 @@ import {} from 'vue'
 import { useStore } from 'vuex'
 import { Tools } from '@element-plus/icons-vue'
 import Screenfull from '@/components/Screenfull'
+import HeaderSearch from '@/components/HeaderSearch'
 
 const store = useStore()
 const logout = () => {
