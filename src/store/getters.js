@@ -1,7 +1,14 @@
-import variables from '@/styles/variables.module.scss'
+import { MAIN_COLOR } from '@/constant'
+import { getItem } from '@/utils/storage'
+import { generateColors } from '@/utils/theme'
 const getters = {
   userInfo: (state) => state.user.userInfo,
-  cssVar: (state) => variables,
+  cssVar: (state) => {
+    return {
+      ...state.theme.variables,
+      ...generateColors(getItem(MAIN_COLOR))
+    }
+  },
   language: (state) => state.app.language,
   /**
    * @returns true 表示已存在用户信息
