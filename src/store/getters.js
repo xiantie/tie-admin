@@ -18,6 +18,7 @@ const getters = {
   },
   token: (state) => state.user.token,
   sidebarOpened: (state) => state.app.sidebarOpened,
-  mainColor: (state) => state.theme.mainColor
+  mainColor: (state) => state.theme.mainColor,
+  tagsViewList: (state) => state.app.tagsViewList
 }
 export default getters
