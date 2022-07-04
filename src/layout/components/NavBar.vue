@@ -1,8 +1,9 @@
 <template>
   <div class="navbar">
     <hamburger class="hamburger-container" />
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb id="guide-breadcrumb" class="breadcrumb-container" />
     <div class="right-menu">
+      <guide class="right-menu-item hover-effect" />
       <header-search class="right-menu-item hover-effect" />
       <screenfull class="right-menu-item hover-effect" />
       <theme-picker class="right-menu-item hover-effect" />
@@ -38,15 +39,17 @@
 </template>
 
 <script setup>
-import ThemePicker from '@/components/ThemeSelect/index'
+import ThemePicker from '@/components/ThemePicker/index'
 import LangSelect from '@/components/LangSelect'
-import Hamburger from '@/components/MyHamburger'
+import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import {} from 'vue'
 import { useStore } from 'vuex'
 import { Tools } from '@element-plus/icons-vue'
 import Screenfull from '@/components/Screenfull'
 import HeaderSearch from '@/components/HeaderSearch'
+
+import Guide from '@/components/Guide'
 
 const store = useStore()
 const logout = () => {
