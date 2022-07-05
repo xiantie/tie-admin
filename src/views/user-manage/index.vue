@@ -53,7 +53,7 @@
           fixed="right"
           width="260"
         >
-          <template #default>
+          <template #default="{ row }">
             <el-button type="primary" size="mini">{{
               $t('msg.excel.show')
             }}</el-button>
