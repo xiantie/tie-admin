@@ -30,6 +30,7 @@ const i18n = createI18n({
   // 全局注入 $t 函数
   globalInjection: true,
   locale: getLanguage(),
+  warnHtmlMessage: false,
   messages
 })
 
