@@ -20,17 +20,20 @@
       @dragover.stop.prevent="handleDragover"
       @dragenter.stop.prevent="handleDragover"
     >
-      <i class="el-icon-upload" />
+      <el-icon clsss="el-icon-upload">
+        <UploadFilled />
+      </el-icon>
       <span>{{ $t('msg.uploadExcel.drop') }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
-import XLSX from 'xlsx'
+import * as XLSX from 'xlsx/xlsx.mjs'
 import { defineProps, ref } from 'vue'
-import { getHeaderRow } from './utils'
-
+import { UploadFilled } from '@element-plus/icons-vue'
+import { getHeaderRow, isExcel } from './utils'
+import { ElMessage } from 'element-plus'
 const props = defineProps({
   // 上传前回调
   beforeUpload: Function,
@@ -54,9 +57,39 @@ const handleChange = (e) => {
 }
 
 /**
+ * 拖拽文本释放时触发
+ */
+const handleDrop = (e) => {
+  // 上传中跳过
+  if (loading.value) return
+  const files = e.dataTransfer.files
+  if (files.length !== 1) {
+    ElMessage.error('必须要有一个文件')
+    return
+  }
+  const rawFile = files[0]
+  if (!isExcel(rawFile)) {
+    ElMessage.error('文件必须是 .xlsx, .xls, .csv 格式')
+    return false
+  }
+  // 触发上传事件
+  upload(rawFile)
+}
+
+/**
+ * 拖拽悬停时触发
+ */
+const handleDragover = (e) => {
+  // https://developer.mozilla.org/zh-CN/docs/Web/API/DataTransfer/dropEffect
+  // 在新位置生成源项的副本
+  e.dataTransfer.dropEffect = 'copy'
+}
+
+/**
  * 触发上传事件
  */
 const upload = (rawFile) => {
+  // console.log(rawFile)
   excelUploadInput.value.value = null
   // 如果没有指定上传前回调的话
   if (!props.beforeUpload) {
@@ -83,6 +116,7 @@ const readerData = (rawFile) => {
     reader.onload = (e) => {
       // 1. 获取解析到的数据
       const data = e.target.result
+      // console.log('data', data)
       // 2. 利用 XLSX 对数据进行解析
       const workbook = XLSX.read(data, { type: 'array' })
       // 3. 获取第一张表格(工作簿)名称
@@ -93,6 +127,7 @@ const readerData = (rawFile) => {
       const header = getHeaderRow(worksheet)
       // 6. 解析数据体
       const results = XLSX.utils.sheet_to_json(worksheet)
+      // console.log(results)
       // 7. 传入解析之后的数据
       generateData({ header, results })
       // 8. loading 处理
@@ -135,6 +170,7 @@ const generateData = (excelData) => {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     color: #bbb;
     i {
       font-size: 60px;

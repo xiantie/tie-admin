@@ -1,4 +1,4 @@
-import XLSX from 'xlsx'
+import * as XLSX from 'xlsx/xlsx.mjs'
 /**
  * 获取表头（通用方式）
  */
@@ -17,4 +17,7 @@ export const getHeaderRow = (sheet) => {
     headers.push(hdr)
   }
   return headers
+}
+export const isExcel = (file) => {
+  return /\.(xlsx|xls|csv)$/.test(file.name)
 }

@@ -60,7 +60,7 @@
             <el-button type="info" size="mini">{{
               $t('msg.excel.showRole')
             }}</el-button>
-            <el-button type="danger" size="mini">{{
+            <el-button type="danger" size="mini" @click="onRemoveClick(row)">{{
               $t('msg.excel.remove')
             }}</el-button>
           </template>
@@ -83,16 +83,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { getUserManageList } from '@/api/user-manage'
+import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
 import { useRouter } from 'vue-router'
-
+import { useI18n } from 'vue-i18n'
+import { ref, onActivated } from 'vue'
+import { ElMessageBox, ElMessage } from 'element-plus'
+const i18n = useI18n()
 // 数据相关
 const tableData = ref([])
 const total = ref(0)
 const page = ref(1)
-const size = ref(2)
+const size = ref(10)
 // 获取数据的方法
 const getListData = async () => {
   const result = await getUserManageList({
@@ -102,9 +104,11 @@ const getListData = async () => {
   tableData.value = result.list
   total.value = result.total
 }
+// 处理导入用户后数据不重新加载的问题
 getListData()
 // 监听语言切换
 watchSwitchLang(getListData)
+onActivated(getListData)
 
 // 分页相关
 /**
@@ -129,6 +133,26 @@ const router = useRouter()
  */
 const onImportExcelClick = () => {
   router.push('/user/import')
+}
+
+/**
+ * 删除按钮点击事件
+ */
+
+const onRemoveClick = (row) => {
+  ElMessageBox.confirm(
+    i18n.t('msg.excel.dialogTitle1') +
+      row.username +
+      i18n.t('msg.excel.dialogTitle2'),
+    {
+      type: 'warning'
+    }
+  ).then(async () => {
+    await deleteUser(row._id)
+    ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+    // 重新渲染数据
+    getListData()
+  })
 }
 </script>
 
