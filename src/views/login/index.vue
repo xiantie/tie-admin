@@ -207,4 +207,12 @@ $cursor: #fff;
     cursor: pointer;
   }
 }
+:deep(.el-input__inner) {
+  box-shadow: none !important;
+  --el-select-input-focus-border-color: none !important;
+}
+:deep(.el-input__wrapper) {
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
 </style>

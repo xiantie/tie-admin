@@ -5,7 +5,7 @@
         <el-button type="primary" @click="onImportExcelClick">
           {{ $t('msg.excel.importExcel') }}</el-button
         >
-        <el-button type="success">
+        <el-button type="success" @click="onToExcelClick">
           {{ $t('msg.excel.exportExcel') }}
         </el-button>
       </div>
@@ -79,6 +79,7 @@
       >
       </el-pagination>
     </el-card>
+    <export-to-excel v-model="exportToExcelVisible" />
   </div>
 </template>
 
@@ -89,6 +90,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { ref, onActivated } from 'vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import ExportToExcel from './components/Export2Excel'
 const i18n = useI18n()
 // 数据相关
 const tableData = ref([])
@@ -153,6 +155,13 @@ const onRemoveClick = (row) => {
     // 重新渲染数据
     getListData()
   })
+}
+/**
+ * excel 导出点击事件
+ */
+const exportToExcelVisible = ref(false)
+const onToExcelClick = () => {
+  exportToExcelVisible.value = true
 }
 </script>
 
