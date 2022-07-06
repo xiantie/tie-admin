@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form
       class="login-form"
-      ref="loginFormRef"
+      ref="loginFromRef"
       :model="loginForm"
       :rules="loginRules"
     >
@@ -10,7 +10,7 @@
         <h3 class="title">{{ $t('msg.login.title') }}</h3>
         <lang-select class="lang-select" effect="light"></lang-select>
       </div>
-      <!-- username -->
+
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon="user" />
@@ -22,7 +22,7 @@
           v-model="loginForm.username"
         />
       </el-form-item>
-      <!-- password  -->
+
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon="password" />
@@ -34,14 +34,13 @@
           v-model="loginForm.password"
         />
         <span class="show-pwd">
-          <span class="svg-container" @click="onChangePwdType">
-            <svg-icon
-              :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
-            />
-          </span>
+          <svg-icon
+            :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+            @click="onChangePwdType"
+          />
         </span>
       </el-form-item>
-      <!-- 登陆按钮 -->
+
       <el-button
         type="primary"
         style="width: 100%; margin-bottom: 30px"
@@ -49,30 +48,36 @@
         @click="handleLogin"
         >{{ $t('msg.login.loginBtn') }}</el-button
       >
+
       <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
+
 <script setup>
-import { ref } from 'vue'
+import LangSelect from '@/components/LangSelect/index.vue'
+import { ref, computed } from 'vue'
 import { validatePassword } from './rules'
 import { useStore } from 'vuex'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import LangSelect from '@/components/LangSelect'
-//数据源
+import { watchSwitchLang } from '@/utils/i18n'
+
+// 数据源
 const loginForm = ref({
   username: 'super-admin',
   password: '123456'
 })
-//验证规则
+// 验证规则
 const i18n = useI18n()
 const loginRules = ref({
   username: [
     {
       required: true,
       trigger: 'blur',
-      message: i18n.t('msg.login.usernameRule')
+      message: computed(() => {
+        return i18n.t('msg.login.usernameRule')
+      })
     }
   ],
   password: [
@@ -83,33 +88,36 @@ const loginRules = ref({
     }
   ]
 })
-//处理密码明文显示
+// 监听语言变化，重新进行表单校验。issue: https://coding.imooc.com/learn/questiondetail/254087.html
+watchSwitchLang(() => {
+  loginFromRef.value.validate()
+})
+
+// 处理密码框文本显示状态
 const passwordType = ref('password')
-//  template 中绑定的方法，直接声明即可
 const onChangePwdType = () => {
-  //当passwordType的值为password的时候，改为text
-  // 试用ref声明的数据，在script中使用时，需要加value来获取具体的值，但是在template中试用的时候不需要加value
   if (passwordType.value === 'password') {
     passwordType.value = 'text'
   } else {
     passwordType.value = 'password'
   }
 }
-//登陆动作处理
+
+// 登录动作处理
 const loading = ref(false)
-const loginFormRef = ref(null)
+const loginFromRef = ref(null)
 const store = useStore()
+const router = useRouter()
 const handleLogin = () => {
-  // 1. 进行表单验证
-  loginFormRef.value.validate((valid) => {
+  loginFromRef.value.validate((valid) => {
     if (!valid) return
-    // 2.触发登陆动作
+
     loading.value = true
     store
       .dispatch('user/login', loginForm.value)
       .then(() => {
         loading.value = false
-        // TODO: // 3.进行登录后处理
+        // 登录后操作
         router.push('/')
       })
       .catch((err) => {
@@ -119,6 +127,7 @@ const handleLogin = () => {
   })
 }
 </script>
+
 <style lang="scss" scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
@@ -163,10 +172,18 @@ $cursor: #fff;
       }
     }
   }
+
   .tips {
     font-size: 16px;
-    color: white;
-    line-height: 24px;
+    line-height: 28px;
+    color: #fff;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
+      }
+    }
   }
 
   .svg-container {
@@ -186,30 +203,28 @@ $cursor: #fff;
       text-align: center;
       font-weight: bold;
     }
+
+    :deep(.lang-select) {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      background-color: white;
+      font-size: 22px;
+      padding: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
   }
 
   .show-pwd {
     position: absolute;
     right: 10px;
+    top: 7px;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
   }
-  .lang-select {
-    position: absolute;
-    top: 4px;
-    right: 0;
-    background-color: #fff;
-    font-size: 22px;
-    padding: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-}
-:deep(.el-input__inner) {
-  box-shadow: none !important;
-  --el-select-input-focus-border-color: none !important;
 }
 :deep(.el-input__wrapper) {
   box-shadow: none !important;

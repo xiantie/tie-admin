@@ -193,12 +193,14 @@ const onRemoveClick = (row) => {
     {
       type: 'warning'
     }
-  ).then(async () => {
-    await deleteUser(row._id)
-    ElMessage.success(i18n.t('msg.excel.removeSuccess'))
-    // 重新渲染数据
-    getListData()
-  })
+  )
+    .then(async () => {
+      await deleteUser(row._id)
+      ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+      // 重新渲染数据
+      getListData()
+    })
+    .catch(() => {})
 }
 </script>
 
@@ -208,13 +210,13 @@ const onRemoveClick = (row) => {
     margin-bottom: 22px;
     text-align: right;
   }
-  ::v-deep .avatar {
+  :deep(.avatar) {
     width: 60px;
     height: 60px;
     border-radius: 50%;
   }
 
-  ::v-deep .el-tag {
+  :deep(.el-tag) {
     margin-right: 6px;
   }
 

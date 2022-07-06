@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { saveAs } from 'file-saver'
-import * as XLSX from 'xlsx/xlsx.mjs'
+import XLSX from 'xlsx'
 
 function datenum(v, date1904) {
   if (date1904) v += 1462

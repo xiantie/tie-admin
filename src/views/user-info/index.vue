@@ -138,7 +138,7 @@ watchSwitchLang(getUserDetail)
   }
   .header {
     display: flex;
-    ::v-deep .el-descriptions {
+    :deep(.el-descriptions) {
       flex-grow: 1;
     }
     .avatar {
