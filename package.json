@@ -25,8 +25,8 @@
     "screenfull": "^6.0.2",
     "vue": "^3.2.37",
     "vue-i18n": "^9.2.0-beta.36",
-    "vue-print-nb": "^1.7.5",
     "vue-router": "^4.0.3",
+    "vue3-print-nb": "^0.1.4",
     "vuex": "^4.0.0",
     "xlsx": "^0.18.5"
   },
