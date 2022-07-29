@@ -5,6 +5,8 @@ function resolve(dir) {
 }
 module.exports = defineConfig({
   devServer: {
+    port: 7777,
+    host: 'localhost',
     //配置方向代理
     proxy: {
       //当地址中有/api的时候会触发代理机制
